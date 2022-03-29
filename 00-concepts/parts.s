@@ -76,6 +76,8 @@ time        DB  21, 37              ; 21:37
 date        DB  5, 3, 22            ; 05/03/2022
 date_time   DB  5, 3, 22, 21, 37    ; 05/03/2022 21:37
 
+; Max value in 1 byte = 8 bits -> 2^8 = 256
+
 
 
 ; ******************************* BODY ********************************
@@ -86,21 +88,21 @@ date_time   DB  5, 3, 22, 21, 37    ; 05/03/2022 21:37
 
 CODESEG
 
-start:
-            mov         ax, @data       ; Initialize DS to address
+start:      mov         ax, @data       ; Initialize DS to address
             mov         ds, ax          ; of data segment
             jmp         exit            ; Jump to exit label
             mov         cx, 10          ; This line is skipped
 
-exit:
-            mov         ah, 0x4C        ; DOS function: exit program
+exit:       mov         ah, 0x4C        ; DOS function: exit program
             mov         al, [ex_code]   ; Return exit code value
             int         12h             ; Call DOS. Terminate program
+
+
 
 ; ****************************** CLOSING ******************************
 ; Marks the end of the source-code text.
 ; Single line that tells TASM it has reached the end of the program.
 ; After END directive, you must specify the label where you want the
 ; program to begin running.
-END     start       ; End of program / Entry point
+END     start                           ; End of program / Entry point
 
